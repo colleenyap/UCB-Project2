@@ -16,7 +16,8 @@ Data Cleaning
    a) price ≤ 0 and > 100,000, unrealistic mileage/year were removed. Vehicles with prices above $100,000 were removed to reduce the influence of extreme outliers and focus the analysis on typical used car inventory.
    b) Salvage-condition vehicles were removed to reduce noise.
    c) Year before 2000 and after 2026 were removed.
-3. Missing values were filled within the modeling pipeline.
+   d) Odometer > 300,000 removed.
+   e) Missing values were filled within the modeling pipeline.
 
 Key Findings
 
