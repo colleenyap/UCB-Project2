@@ -51,7 +51,7 @@ Use data-driven pricing as a guideline rather than an exact rule.
 
 Tools
 
-Python, Pandas, NumPy, Scikit-learn, and Matplotlib were used for data analysis and modeling.
+Python, Pandas, NumPy, Scikit-learn, Seaborn and Matplotlib were used for data analysis and modeling.
 
 Conclusion
 
