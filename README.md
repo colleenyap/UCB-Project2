@@ -46,13 +46,13 @@ Polynomial Ridge Regression — Ridge Regression with polynomial numeric feature
 Lasso Regression — regularization with automatic feature selection
 
  Model                        RMSE (Log Scale)        R² 
- ---------------------------  ------------------  ------------
- Linear Regression                  0.400878        0.755989 
- Ridge Regression                   0.401488        0.755246 
- Polynomial Ridge Regression        0.400916        0.755943 
- Lasso Regression                   0.811542        0 
+ ---------------------------  ------------------  ------------------
+ Linear Regression            0.4014447679025354  0.7552988749132854
+ Ridge Regression             0.4014884715610439  0.7552455927814115
+ Polynomial Ridge Regression  0.3960686348529691  0.7618090453808012
+ Lasso Regression             0.43101034821682516 0.7179281436126141
 
-Linear Regression achieved the best overall performance, although the difference between Linear Regression, Ridge Regression, and Polynomial Ridge Regression was extremely small.
+Polynomial Linear Regression achieved the best overall performance, although the difference between Linear Regression, Ridge Regression, and Polynomial Ridge Regression was extremely small.
 
 The final models explained approximately 76% of the variation in used car prices, indicating strong predictive performance for a real-world marketplace dataset.
 
@@ -71,11 +71,11 @@ Simpler linear models performed nearly as well as more complex regularized model
 
 Business Recommendations
 
-Focus inventory on newer, lower-mileage vehicles to maximize resale value.
-Prioritize high-demand brands and vehicle types such as SUVs and trucks.
-Avoid or carefully price salvage and high-mileage vehicles.
-Use data-driven pricing models as a pricing support tool rather than an exact pricing rule.
-Additional data such as accident history, trim level, maintenance history, and number of owners could further improve pricing accuracy.
+* Focus inventory on newer, lower-mileage vehicles to maximize resale value.
+* Prioritize high-demand brands and vehicle types such as SUVs and trucks.
+* Avoid or carefully price salvage and high-mileage vehicles.
+* Use data-driven pricing models as a pricing support tool rather than an exact pricing rule.
+* Additional data such as accident history, trim level, maintenance history, and number of owners could further improve pricing accuracy.
 
 Tools
 
