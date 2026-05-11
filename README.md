@@ -11,44 +11,71 @@ Identify the factors that make a car more or less expensive and build a model to
 
 Data Cleaning
 
-1. VIN and size columns were dropped due to high missing values or low relevance.
-2. Invalid values
-   a) price ≤ 0 and > 100,000, unrealistic mileage/year were removed. Vehicles with prices above $100,000 were removed to reduce the influence of extreme outliers and focus the analysis on typical used car inventory.
-   b) Salvage-condition vehicles were removed to reduce noise.
-   c) Year before 2000 and after 2026 were removed.
-   d) Odometer > 300,000 removed.
-   e) Missing values were filled within the modeling pipeline.
+1. ID, VIN, Paint_Color, Region and size columns were dropped due to high missing values or low relevance.
+2. Invalid and unrealistic vehicle listings were filtered from the dataset:
+ a) Vehicles with prices below $1,000 or above $100,000 were removed to reduce the impact of extreme outliers and focus the analysis on typical used car inventory.
+ b) Vehicles with unrealistic mileage values were removed by limiting odometer readings to greater than 0 and less than or equal to 250,000 miles.
+ c) Vehicles manufactured before 2000 or after 2026 were removed.
+ d) Salvage-condition vehicles were removed to reduce noise and improve model consistency.
+ e) Listings with title_status values of "salvage", "missing", or "parts only" were removed.
+
+Remaining missing values were handled within the machine learning preprocessing pipeline using imputation techniques.
 
 Key Findings
 
-Vehicle price is strongly influenced by age, mileage, condition, brand, and vehicle type.
-Newer vehicles and those with lower mileage consistently command higher prices.
-Better condition vehicles have higher resale value.
-Luxury brands and high-demand manufacturers significantly increase price.
-SUVs, trucks, and specialty vehicles tend to have higher prices than smaller cars.
+Used car prices are strongly influenced by:
 
-Some highly specific model categories introduced noise, so broader patterns such as brand and vehicle type are more useful for decision-making.
+Vehicle age
+Odometer mileage
+Vehicle condition
+Manufacturer and model
+Vehicle type and drivetrain
 
-Modeling Results
+Newer vehicles with lower mileage generally command higher prices. Luxury brands and specialty vehicle types such as trucks, SUVs, and convertibles were associated with higher predicted prices. Four-wheel drive vehicles and vehicles with higher cylinder counts were also linked to higher prices.
 
-Linear Regression, Ridge, and Lasso models were evaluated using cross-validation.
+Feature importance analysis from the Ridge Regression model showed that manufacturers such as Ferrari, Tesla, Porsche, Toyota, GMC, and Ram had strong positive relationships with vehicle price. Older vehicles, higher mileage, and lower condition ratings were associated with lower prices.
 
-Ridge Regression performed best with the lowest RMSE. Predictions are within approximately two times the actual price, meaning the model captures general trends but not exact values. Ridge Regression results were very close to Linear Regression results. Lasso performed worse due to eliminating useful features.
+
+Models Evaluated
+
+Four regression models were developed and compared:
+
+Linear Regression — baseline model
+Ridge Regression — regularized regression to reduce overfitting
+Polynomial Ridge Regression — Ridge Regression with polynomial numeric features
+Lasso Regression — regularization with automatic feature selection
+
+ Model                        RMSE (Log Scale)        R² 
+ ---------------------------  ------------------  ------------
+ Linear Regression                  0.400878        0.755989 
+ Ridge Regression                   0.401488        0.755246 
+ Polynomial Ridge Regression        0.400916        0.755943 
+ Lasso Regression                   0.811542        0 
+
+Linear Regression achieved the best overall performance, although the difference between Linear Regression, Ridge Regression, and Polynomial Ridge Regression was extremely small.
+
+The final models explained approximately 76% of the variation in used car prices, indicating strong predictive performance for a real-world marketplace dataset.
+
+The RMSE results correspond to predictions generally being within about 1.5 times the actual vehicle price.
+
+Lasso Regression performed substantially worse because removing coefficients eliminated features that still contained useful predictive information.
 
 Insights
 
-Price is not driven by a single factor but by a combination of vehicle characteristics and market demand.
-Brand reputation and vehicle type play a major role in pricing.
-Removing noisy or extreme cases (e.g., salvage vehicles) improves model performance.
-Adding factors like accident history, number of owners can potentially improve model analysis.
+Data cleaning and feature engineering contributed more to model improvement than increasing model complexity.
+Removing unrealistic listings and salvage vehicles significantly improved model performance.
+Vehicle age and mileage remain the strongest pricing factors.
+Brand reputation and vehicle type strongly influence resale value.
+Luxury and specialty vehicles command higher prices in the used car market.
+Simpler linear models performed nearly as well as more complex regularized models after data cleaning and preprocessing improvements.
 
 Business Recommendations
 
-Focus on newer, low-mileage vehicles to maximize resale value.
-Prioritize high-demand brands and models.
-Stock more SUVs and trucks due to higher resale potential.
+Focus inventory on newer, lower-mileage vehicles to maximize resale value.
+Prioritize high-demand brands and vehicle types such as SUVs and trucks.
 Avoid or carefully price salvage and high-mileage vehicles.
-Use data-driven pricing as a guideline rather than an exact rule.
+Use data-driven pricing models as a pricing support tool rather than an exact pricing rule.
+Additional data such as accident history, trim level, maintenance history, and number of owners could further improve pricing accuracy.
 
 Tools
 
@@ -56,7 +83,9 @@ Python, Pandas, NumPy, Scikit-learn, Seaborn and Matplotlib were used for data a
 
 Conclusion
 
-Used car prices are influenced by multiple factors, including age, mileage, condition, brand, and vehicle type. While the model cannot predict exact prices, it provides strong insights into pricing trends and supports better inventory and pricing decisions.
+Used car prices are influenced by a combination of vehicle age, mileage, condition, manufacturer, vehicle type, and market demand. After extensive data cleaning and feature engineering, the regression models achieved strong predictive performance, explaining approximately 76% of price variation in the dataset.
+
+The project demonstrates that improving data quality and feature engineering can have a larger impact on model performance than increasing model complexity. While the models cannot predict exact prices, they provide valuable insight into pricing trends and support better inventory and pricing decisions.
 
 Author
 
